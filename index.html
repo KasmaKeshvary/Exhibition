@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>نمایشگاه بین‌المللی تهران</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3039/3039431.png" type="image/png" />
+
+  <!-- فونت فارسی -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- فونت آیکون Font Awesome نسخه 6.4 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pVjZjwrEcNys1zCbk5KoDKsO0EWgqpl7XfzQZ1fQz3eZpF86bF2JwJHQGcJxr0fwwuEhyIR1THMkqz3h8LHXvg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f1f5f9;
+      color: #1e293b;
+      direction: rtl;
+    }
+
+    header {
+      background-color: #1e3a8a;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      background-color: #1e3a8a;
+      padding: 0.6rem 0;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.25);
+      z-index: 200;
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 0.9rem;
+      padding: 0.3rem 0;
+      cursor: pointer;
+      transition: color 0.3s, transform 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 50px;
+    }
+
+    nav button i {
+      font-size: 1.7rem;
+      margin-bottom: 0.25rem;
+      transition: transform 0.3s;
+    }
+
+    nav button:hover i,
+    nav button.active i {
+      transform: scale(1.3);
+      color: #facc15;
+    }
+
+    nav button:hover,
+    nav button.active {
+      color: #facc15;
+    }
+
+    .page {
+      display: none;
+      padding: 1rem 1.2rem 5rem;
+      min-height: calc(100vh - 130px);
+      max-width: 900px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    h2 {
+      color: #1e3a8a;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    h3 {
+      margin: 0.6rem 0;
+      color: #1e3a8a;
+      font-weight: 600;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      margin: 1rem 0;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+      transition: transform 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 0.7rem;
+      object-fit: cover;
+      max-height: 220px;
+    }
+
+    .card p {
+      line-height: 1.5;
+      color: #334155;
+      font-size: 0.95rem;
+    }
+
+    button {
+      background-color: #1e3a8a;
+      color: white;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-family: 'Vazirmatn', sans-serif;
+      transition: background-color 0.3s;
+      margin-top: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    button:hover {
+      background-color: #1e40af;
+    }
+
+    .setting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.2rem;
+      background: white;
+      border-radius: 12px;
+      margin-bottom: 0.7rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .setting-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .setting-item select {
+      padding: 0.35rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      font-family: 'Vazirmatn', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .map {
+      width: 100%;
+      height: 320px;
+      border-radius: 14px;
+      margin-top: 1.2rem;
+      object-fit: cover;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .search-bar {
+      margin: 1rem 0 1.5rem;
+      padding: 0.5rem 0.7rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 1rem;
+      color: #334155;
+      box-sizing: border-box;
+    }
+
+    .form-container {
+      background: white;
+      padding: 2rem 1.5rem;
+      border-radius: 14px;
+      margin: 1rem 0 3rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      max-width: 450px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .form-container input,
+    .form-container select {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      margin: 0.6rem 0;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 1rem;
+      color: #475569;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+
+    .form-container input:focus,
+    .form-container select:focus {
+      outline: none;
+      border-color: #1e3a8a;
+      box-shadow: 0 0 5px #1e3a8aaa;
+    }
+
+    .calendar {
+      background: white;
+      padding: 1.2rem 1.5rem;
+      border-radius: 14px;
+      margin: 1rem 0 2rem;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+      max-width: 450px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .calendar h3 {
+      margin: 0 0 0.8rem 0;
+      font-weight: 700;
+      color: #1e3a8a;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .calendar ul {
+      list-style: none;
+      padding: 0;
+      font-size: 1rem;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    .calendar li {
+      padding: 0.55rem 0;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    footer {
+      padding: 1rem 1rem 4rem;
+      text-align: center;
+      color: #64748b;
+      font-size: 0.95rem;
+      user-select: none;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e3a8a;
+      color: white;
+      padding: 0.9rem 1.8rem;
+      border-radius: 8px;
+      display: none;
+      z-index: 1000;
+      font-weight: 600;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+      font-size: 1rem;
+    }
+
+    #moreMenu{
+      display: block;
+      position: absolute;
+      bottom: 90px;
+      right: 0px;
+      background: rgb(30, 58, 138);
+      border-radius: 8px;
+      box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 8px;
+      list-style: none;
+      padding: 0.5rem 0px;
+      min-width: 140px;
+      z-index: 500;
+    }
+
+    @media (max-width: 600px) {
+      nav button {
+        font-size: 0.8rem;
+        min-width: 40px;
+      }
+      nav button i {
+        font-size: 1.4rem;
+      }
+      .page {
+        padding: 0.6rem 0.8rem 5rem;
+      }
+      .form-container,
+      .calendar {
+        max-width: 100%;
+        margin: 1rem auto;
+        padding: 1rem;
+      }
+
+      #moreMenu{
+        display: block;
+        position: absolute;
+        bottom: 86px;
+        right: -85px;
+        background: rgb(30, 58, 138);
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 8px;
+        list-style: none;
+        padding: 0.5rem 0px;
+        min-width: 140px;
+        z-index: 500;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>نمایشگاه بین‌المللی تهران</header>
+
+  <main>
+    <!-- صفحه اخبار -->
+    <section id="news" class="page active" aria-label="اخبار">
+      <h2><i class="fas fa-newspaper"></i> اخبار</h2>
+      <div class="search-bar">
+        <input type="text" id="news-search" placeholder="جستجوی اخبار..." oninput="searchNews()" aria-label="جستجوی اخبار" />
+      </div>
+
+      <article class="card" data-search="کتاب">
+        <img src="https://picsum.photos/seed/news1/400/200" alt="تصویر نمایشگاه کتاب" />
+        <h3>آغاز نمایشگاه بین‌المللی کتاب</h3>
+        <p>با حضور بیش از ۳۰۰ ناشر داخلی و خارجی، بیست‌وهفتمین دوره نمایشگاه بین‌المللی کتاب تهران آغاز شد. این نمایشگاه فرصتی بی‌نظیر برای دیدار با نویسندگان و ناشران برجسته است.</p>
+        <p>این رویداد تا ۱۵ شهریور ادامه خواهد داشت و برنامه‌های ویژه‌ای برای کودکان و نوجوانان در نظر گرفته شده است.</p>
+        <i class="fas fa-calendar-alt" style="color:#1e3a8a;"></i> <small>تا ۱۵ شهریور ۱۴۰۴</small>
+      </article>
+
+      <article class="card" data-search="تکنولوژی">
+        <img src="https://picsum.photos/seed/news2/400/200" alt="رویداد تکنولوژی" />
+        <h3>رویداد تکنولوژی فردا</h3>
+        <p>جدیدترین فناوری‌ها در صنعت هوش مصنوعی و واقعیت افزوده، این هفته در سالن ۹ معرفی می‌شود. این رویداد فرصتی برای آشنایی با نوآوری‌های روز جهان است.</p>
+        <p>ویژه برنامه‌های آموزشی و کارگاه‌های تخصصی نیز برگزار خواهد شد.</p>
+        <i class="fas fa-robot" style="color:#1e3a8a;"></i> <small>سالن ۹، هفته جاری</small>
+      </article>
+
+      <article class="card" data-search="نمایشگاه">
+        <img src="https://picsum.photos/seed/news3/400/200" alt="افتتاحیه نمایشگاه خودرو" />
+        <h3>افتتاحیه نمایشگاه خودرو</h3>
+        <p>نمایشگاه بین‌المللی خودرو با حضور برندهای مطرح جهانی از ۲۰ شهریور آغاز می‌شود. فرصتی عالی برای آشنایی با جدیدترین مدل‌های خودروهای برقی و هیبریدی.</p>
+        <i class="fas fa-car-side" style="color:#1e3a8a;"></i> <small>۲۰ تا ۲۴ شهریور</small>
+      </article>
+
+      <article class="card" data-search="مد">
+        <img src="https://picsum.photos/seed/news4/400/200" alt="نمایشگاه مد و پوشاک" />
+        <h3>نمایشگاه مد و پوشاک</h3>
+        <p>جدیدترین طراحی‌های مد و پوشاک ایرانی و بین‌المللی در سالن ۳ رونمایی شد. این رویداد تا ۱۰ شهریور ادامه دارد.</p>
+        <i class="fas fa-tshirt" style="color:#1e3a8a;"></i> <small>سالن ۳، تا ۱۰ شهریور</small>
+      </article>
+
+      <article class="card" data-search="صنایع دستی">
+        <img src="https://picsum.photos/seed/news5/400/200" alt="نمایشگاه صنایع دستی" />
+        <h3>نمایشگاه صنایع دستی</h3>
+        <p>نمایشگاه صنایع دستی با حضور هنرمندان برجسته از سراسر کشور برگزار می‌شود. این رویداد از ۱ تا ۵ مهر در سالن ۱۰ برگزار خواهد شد.</p>
+        <i class="fas fa-paint-brush" style="color:#1e3a8a;"></i> <small>سالن ۱۰، ۱ تا ۵ مهر</small>
+      </article>
+
+      <article class="card" data-search="فناوری">
+        <img src="https://picsum.photos/seed/news6/400/200" alt="کنفرانس فناوری‌های نوین" />
+        <h3>کنفرانس فناوری‌های نوین</h3>
+        <p>کنفرانس سالانه فناوری‌های نوین با حضور متخصصان بین‌المللی در تاریخ ۱۲ مهر برگزار می‌شود. فرصتی عالی برای یادگیری و شبکه‌سازی.</p>
+        <i class="fas fa-laptop-code" style="color:#1e3a8a;"></i> <small>۱۲ مهر</small>
+      </article>
+    </section>
+
+    <!-- صفحه نمایشگاه‌ها -->
+    <section id="exhibitions" class="page" aria-label="نمایشگاه‌ها">
+      <h2><i class="fas fa-list-ul"></i> لیست نمایشگاه‌ها</h2>
+
+      <div class="calendar" aria-label="تقویم رویدادها">
+        <h3><i class="fas fa-calendar"></i> تقویم رویدادها</h3>
+        <ul>
+          <li><i class="fas fa-utensils"></i> ۳-۷ شهریور: نمایشگاه صنایع غذایی</li>
+          <li><i class="fas fa-blender"></i> ۱۰-۱۴ شهریور: نمایشگاه لوازم خانگی</li>
+          <li><i class="fas fa-car-side"></i> ۲۰-۲۴ شهریور: نمایشگاه خودرو</li>
+          <li><i class="fas fa-paint-brush"></i> ۱-۵ مهر: نمایشگاه صنایع دستی</li>
+          <li><i class="fas fa-laptop-code"></i> ۱۰-۱۴ مهر: نمایشگاه فناوری اطلاعات</li>
+          <li><i class="fas fa-stethoscope"></i> ۲۰-۲۴ مهر: نمایشگاه تجهیزات پزشکی</li>
+        </ul>
+      </div>
+
+      <article class="card">
+        <h3><i class="fas fa-utensils"></i> نمایشگاه صنایع غذایی</h3>
+        <p>تاریخ: ۳ الی ۷ شهریور - سالن ۱ تا ۴</p>
+        <p>بیش از ۲۰۰ برند مطرح صنایع غذایی حضور دارند و آخرین دستاوردهای این حوزه معرفی می‌شود.</p>
+        <button onclick="registerEvent('نمایشگاه صنایع غذایی')"><i class="fas fa-pen"></i> ثبت‌نام</button>
+      </article>
+
+      <article class="card">
+        <h3><i class="fas fa-blender"></i> نمایشگاه لوازم خانگی</h3>
+        <p>تاریخ: ۱۰ الی ۱۴ شهریور - سالن ۷ و ۸</p>
+        <p>جدیدترین محصولات از برندهای داخلی و خارجی ارائه خواهد شد.</p>
+        <button onclick="registerEvent('نمایشگاه لوازم خانگی')"><i class="fas fa-pen"></i> ثبت‌نام</button>
+      </article>
+
+      <article class="card">
+        <h3><i class="fas fa-car-side"></i> نمایشگاه خودرو</h3>
+        <p>تاریخ: ۲۰ الی ۲۴ شهریور - سالن ۵ و ۶</p>
+        <p>نمایش جدیدترین مدل‌های خودروهای برقی و هیبریدی.</p>
+        <button onclick="registerEvent('نمایشگاه خودرو')"><i class="fas fa-pen"></i> ثبت‌نام</button>
+      </article>
+
+      <article class="card">
+        <h3><i class="fas fa-paint-brush"></i> نمایشگاه صنایع دستی</h3>
+        <p>تاریخ: ۱ الی ۵ مهر - سالن ۱۰</p>
+        <p>غرفه‌های متنوع از هنرمندان صنایع دستی کشور.</p>
+        <button onclick="registerEvent('نمایشگاه صنایع دستی')"><i class="fas fa-pen"></i> ثبت‌نام</button>
+      </article>
+
+      <article class="card">
+        <h3><i class="fas fa-laptop-code"></i> نمایشگاه فناوری اطلاعات</h3>
+        <p>تاریخ: ۱۰ الی ۱۴ مهر - سالن ۱۲</p>
+        <p>جدیدترین دستاوردهای فناوری و استارتاپ‌ها.</p>
+        <button onclick="registerEvent('نمایشگاه فناوری اطلاعات')"><i class="fas fa-pen"></i> ثبت‌نام</button>
+      </article>
+
+      <article class="card">
+        <h3><i class="fas fa-stethoscope"></i> نمایشگاه تجهیزات پزشکی</h3>
+        <p>تاریخ: ۲۰ الی ۲۴ مهر - سالن ۱۴</p>
+        <p>محصولات و تجهیزات جدید حوزه پزشکی و بهداشت.</p>
+        <button onclick="registerEvent('نمایشگاه تجهیزات پزشکی')"><i class="fas fa-pen"></i> ثبت‌نام</button>
+      </article>
+    </section>
+
+    <!-- صفحه نقشه غرفه‌ها -->
+    <section id="map" class="page" aria-label="نقشه غرفه‌ها">
+      <h2><i class="fas fa-map-marked-alt"></i> نقشه غرفه‌ها</h2>
+      <p>برای مشاهده موقعیت دقیق غرفه‌ها روی نقشه کلیک کنید یا از راهنمای زیر استفاده کنید.</p>
+      <img
+        class="map"
+        src="https://cdn-icons-png.flaticon.com/512/684/684908.png"
+        alt="نقشه نمایشگاه"
+      />
+      <ul>
+        <li><i class="fas fa-utensils"></i> سالن ۱: غرفه‌های غذایی</li>
+        <li><i class="fas fa-microchip"></i> سالن ۲: غرفه‌های تکنولوژی</li>
+        <li><i class="fas fa-tshirt"></i> سالن ۳: غرفه‌های پوشاک</li>
+        <li><i class="fas fa-car"></i> سالن ۴-۶: غرفه‌های خودرو</li>
+        <li><i class="fas fa-blender"></i> سالن ۷-۸: غرفه‌های لوازم خانگی</li>
+        <li><i class="fas fa-paint-brush"></i> سالن ۱۰: غرفه‌های صنایع دستی</li>
+        <li><i class="fas fa-laptop-code"></i> سالن ۱۲: غرفه‌های فناوری اطلاعات</li>
+        <li><i class="fas fa-stethoscope"></i> سالن ۱۴: غرفه‌های تجهیزات پزشکی</li>
+      </ul>
+    </section>
+
+    <!-- صفحه درباره ما -->
+    <section id="about" class="page" aria-label="درباره ما">
+      <h2><i class="fas fa-info-circle"></i> درباره ما</h2>
+
+      <article class="card">
+        <h3><i class="fas fa-building"></i> درباره نمایشگاه</h3>
+        <p>
+          نمایشگاه بین‌المللی تهران با بیش از ۵۰ سال سابقه، یکی از بزرگ‌ترین و معتبرترین مراکز نمایشگاهی منطقه خاورمیانه است.
+          هر سال میزبان هزاران بازدیدکننده و شرکت‌کننده از سراسر جهان است.
+        </p>
+        <p>
+          این برنامه به‌منظور معرفی، اطلاع‌رسانی، و دسترسی آسان به رویدادهای نمایشگاه طراحی شده است.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3><i class="fas fa-phone-alt"></i> تماس با ما</h3>
+        <p><i class="fas fa-envelope"></i> ایمیل: info@tehranexpo.ir</p>
+        <p><i class="fas fa-phone"></i> تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</p>
+        <p><i class="fas fa-map-marker-alt"></i> آدرس: تهران، بزرگراه چمران، محل دائمی نمایشگاه‌های بین‌المللی</p>
+      </article>
+
+      <article class="card">
+        <h3><i class="fas fa-history"></i> تاریخچه</h3>
+        <p>
+          نمایشگاه بین‌المللی تهران از سال ۱۳۴۸ فعالیت خود را آغاز کرده و تاکنون میزبان صدها رویداد بین‌المللی بوده است.
+          این مرکز سالانه بیش از ۱ میلیون بازدیدکننده را جذب می‌کند.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3><i class="fas fa-eye"></i> چشم‌انداز</h3>
+        <p>
+          ما در تلاشیم تا با استفاده از فناوری‌های نوین، تجربه‌ای بی‌نظیر برای بازدیدکنندگان فراهم کنیم و هدف ما تبدیل شدن به برترین مرکز نمایشگاهی خاورمیانه است.
+        </p>
+      </article>
+    </section>
+
+    <!-- صفحه ثبت نام -->
+    <section id="register" class="page" aria-label="ثبت نام">
+      <h2><i class="fas fa-user-plus"></i> ثبت‌نام</h2>
+      <div class="form-container" role="form" aria-labelledby="registerFormTitle">
+        <h3 id="registerFormTitle"><i class="fas fa-pen-square"></i> فرم ثبت‌نام</h3>
+        <input
+          type="text"
+          id="name"
+          placeholder="نام و نام خانوادگی"
+          required
+          aria-required="true"
+          aria-label="نام و نام خانوادگی"
+        />
+        <input
+          type="email"
+          id="email"
+          placeholder="ایمیل"
+          required
+          aria-required="true"
+          aria-label="ایمیل"
+        />
+        <input
+          type="tel"
+          id="phone"
+          placeholder="شماره تلفن"
+          required
+          aria-required="true"
+          aria-label="شماره تلفن"
+        />
+        <select id="event" required aria-required="true" aria-label="انتخاب رویداد">
+          <option value="" disabled selected>انتخاب رویداد</option>
+          <option value="نمایشگاه صنایع غذایی">نمایشگاه صنایع غذایی</option>
+          <option value="نمایشگاه لوازم خانگی">نمایشگاه لوازم خانگی</option>
+          <option value="نمایشگاه خودرو">نمایشگاه خودرو</option>
+          <option value="نمایشگاه صنایع دستی">نمایشگاه صنایع دستی</option>
+          <option value="نمایشگاه فناوری اطلاعات">نمایشگاه فناوری اطلاعات</option>
+          <option value="نمایشگاه تجهیزات پزشکی">نمایشگاه تجهیزات پزشکی</option>
+        </select>
+        <button onclick="submitRegistration()"><i class="fas fa-paper-plane"></i> ثبت‌نام</button>
+      </div>
+    </section>
+    <!-- بعد از بخش ثبت‌نام فعلی، این بخش‌ها را اضافه کنید -->
+
+<!-- صفحه ثبت‌نام شرکت‌ها -->
+<section id="company-register" class="page" aria-label="ثبت‌نام شرکت‌ها">
+  <h2><i class="fas fa-building"></i> ثبت‌نام شرکت‌ها</h2>
+  <div class="form-container" role="form" aria-labelledby="companyRegisterTitle">
+    <h3 id="companyRegisterTitle"><i class="fas fa-pen-square"></i> فرم ثبت‌نام شرکت</h3>
+    <input type="text" id="companyName" placeholder="نام شرکت" required aria-required="true" aria-label="نام شرکت" />
+    <input type="text" id="companyManager" placeholder="نام مدیر عامل" required aria-required="true" aria-label="نام مدیر عامل" />
+    <input type="email" id="companyEmail" placeholder="ایمیل شرکت" required aria-required="true" aria-label="ایمیل شرکت" />
+    <input type="tel" id="companyPhone" placeholder="شماره تلفن شرکت" required aria-required="true" aria-label="شماره تلفن شرکت" />
+    <button onclick="submitCompanyRegistration()"><i class="fas fa-paper-plane"></i> ثبت‌نام شرکت</button>
+  </div>
+</section>
+
+<!-- صفحه رزرو پارکینگ -->
+<section id="parking" class="page" aria-label="رزرو پارکینگ">
+  <h2><i class="fas fa-parking"></i> رزرو پارکینگ</h2>
+  <div class="form-container" role="form" aria-labelledby="parkingFormTitle">
+    <h3 id="parkingFormTitle"><i class="fas fa-calendar-check"></i> فرم رزرو پارکینگ</h3>
+    <label for="parkingDate">تاریخ رزرو:</label>
+    <input type="date" id="parkingDate" required aria-required="true" aria-label="تاریخ رزرو پارکینگ" />
+    <label for="parkingCount">تعداد جای پارک:</label>
+    <select id="parkingCount" required aria-required="true" aria-label="تعداد جای پارک">
+      <option value="" disabled selected>انتخاب تعداد</option>
+      <option value="1">۱</option>
+      <option value="2">۲</option>
+      <option value="3">۳</option>
+      <option value="4">۴</option>
+      <option value="5">۵</option>
+    </select>
+    <button onclick="submitParkingReservation()"><i class="fas fa-paper-plane"></i> رزرو</button>
+  </div>
+
+  <!-- لیست پارکینگ‌ها -->
+  <div id="parkingList" style="margin-top: 2rem;">
+    <h3><i class="fas fa-list"></i> پارکینگ‌های موجود</h3>
+    <div class="parking-card" style="border:1px solid #ccc; padding:1rem; border-radius:8px; margin-bottom:1rem; background:#f9fafb;">
+      <h4>پارکینگ مرکزی</h4>
+      <p><strong>موقعیت:</strong> خیابان انقلاب، روبروی ساختمان نمایشگاه</p>
+      <p><strong>مبلغ رزرو:</strong> ۵۰,۰۰۰ تومان / روز</p>
+    </div>
+    <div class="parking-card" style="border:1px solid #ccc; padding:1rem; border-radius:8px; margin-bottom:1rem; background:#f9fafb;">
+      <h4>پارکینگ جنوبی</h4>
+      <p><strong>موقعیت:</strong> خیابان ولیعصر، جنب درب جنوبی</p>
+      <p><strong>مبلغ رزرو:</strong> ۴۰,۰۰۰ تومان / روز</p>
+    </div>
+    <div class="parking-card" style="border:1px solid #ccc; padding:1rem; border-radius:8px; margin-bottom:1rem; background:#f9fafb;">
+      <h4>پارکینگ شمالی</h4>
+      <p><strong>موقعیت:</strong> بلوار کشاورز، نزدیک درب شمالی</p>
+      <p><strong>مبلغ رزرو:</strong> ۶۰,۰۰۰ تومان / روز</p>
+    </div>
+  </div>
+</section>
+
+<section id="shop" class="page" aria-label="فروشگاه">
+  <h2><i class="fas fa-shopping-cart"></i> فروشگاه</h2>
+
+  <!-- تبلیغ کلی -->
+  <div class="card" style="background: linear-gradient(90deg, #1e3a8a, #3b82f6); color: white;">
+    <h3><i class="fas fa-bullhorn"></i> تبلیغات ویژه فروشگاه</h3>
+    <p>تخفیف ویژه تا ۳۰٪ روی تمامی محصولات فقط تا پایان این ماه!</p>
+  </div>
+
+  <!-- لیست محصولات -->
+  <article class="card">
+    <img src="https://picsum.photos/seed/product1/400/220" alt="محصول ۱" />
+    <h3>گوشی هوشمند مدل X</h3>
+    <p>قیمت اصلی: <del>۱۰,۰۰۰,۰۰۰ تومان</del></p>
+    <p style="color: #dc2626; font-weight: 700;">تخفیف ۲۰٪ - قیمت با تخفیف: ۸,۰۰۰,۰۰۰ تومان</p>
+    <p>توضیحات: گوشی هوشمند با پردازنده قوی و دوربین حرفه‌ای.</p>
+    <button><i class="fas fa-cart-plus"></i> افزودن به سبد خرید</button>
+  </article>
+
+  <article class="card">
+    <img src="https://picsum.photos/seed/product2/400/220" alt="محصول ۲" />
+    <h3>هدفون بی‌سیم مدل Y</h3>
+    <p>قیمت اصلی: <del>۲,۵۰۰,۰۰۰ تومان</del></p>
+    <p style="color: #dc2626; font-weight: 700;">تخفیف ۱۵٪ - قیمت با تخفیف: ۲,۱۲۵,۰۰۰ تومان</p>
+    <p>توضیحات: هدفون با کیفیت صدای عالی و عمر باتری طولانی.</p>
+    <button><i class="fas fa-cart-plus"></i> افزودن به سبد خرید</button>
+  </article>
+  
+  <!-- بیشتر محصولات رو اینجا اضافه کن -->
+</section>
+
+
+<!-- صفحه کیف پول و پرداخت با کریپتو -->
+<section id="wallet" class="page" aria-label="کیف پول و پرداخت">
+  <h2><i class="fas fa-wallet"></i> کیف پول و پرداخت</h2>
+  <div class="form-container" role="form" aria-labelledby="walletTitle">
+    <h3 id="walletTitle"><i class="fas fa-coins"></i> موجودی کیف پول</h3>
+    <p id="walletBalance" style="font-size: 1.3rem; font-weight: 700; color: #1e3a8a;">۰ تومان</p>
+
+    <h3><i class="fas fa-plus-circle"></i> شارژ کیف پول</h3>
+    <input type="number" id="walletChargeAmount" placeholder="مقدار شارژ (تومان)" min="1000" aria-label="مقدار شارژ کیف پول" />
+    <button onclick="chargeWallet()"><i class="fas fa-arrow-up"></i> شارژ</button>
+
+    <h3 style="margin-top: 2rem;"><i class="fab fa-bitcoin"></i> پرداخت با کریپتو</h3>
+    <select id="cryptoSelect" aria-label="انتخاب ارز دیجیتال">
+      <option value="USDT" selected>USDT</option>
+      <option value="BTC">BTC</option>
+      <option value="ETH">ETH</option>
+    </select>
+    <input type="number" id="cryptoAmount" placeholder="مقدار پرداخت" min="0.0001" step="0.0001" aria-label="مقدار پرداخت با کریپتو" />
+    <button onclick="payWithCrypto()"><i class="fas fa-paper-plane"></i> پرداخت</button>
+  </div>
+</section>
+
+<nav aria-label="منوی ناوبری اصلی" style="position: fixed; bottom: 0; width: 100%; background: #1e3a8a; display: flex; justify-content: space-around; padding: 0.5rem 0; box-shadow: 0 -2px 5px rgba(0,0,0,0.2); z-index: 300;">
+  <!-- منوهای اصلی -->
+  <button data-target="register" aria-label="صفحه ثبت نام" style="background:none; border:none; color:white; font-size:0.9rem; display:flex; flex-direction: column; align-items:center; cursor:pointer;">
+    <i class="fas fa-user-plus" style="font-size: 20px; margin-bottom: 2px;"></i>
+    ثبت‌نام
+  </button>
+
+  <button data-target="company-register" aria-label="صفحه ثبت نام" style="background:none; border:none; color:white; font-size:0.9rem; display:flex; flex-direction: column; align-items:center; cursor:pointer;">
+    <i class="fas fa-user-plus" style="font-size: 20px; margin-bottom: 2px;"></i>
+    ثبت نام شرکت
+  </button>
+
+  <button data-target="shop" aria-label="صفحه فروشگاه" style="background:none; border:none; color:white; font-size:0.9rem; display:flex; flex-direction: column; align-items:center; cursor:pointer;">
+    <i class="fas fa-shopping-cart" style="font-size: 20px; margin-bottom: 2px;"></i>
+    فروشگاه
+  </button>
+
+  <button data-target="parking" aria-label="صفحه رزرو پارکینگ" style="background:none; border:none; color:white; font-size:0.9rem; display:flex; flex-direction: column; align-items:center; cursor:pointer;">
+    <i class="fas fa-parking" style="font-size: 20px; margin-bottom: 2px;"></i>
+    پارکینگ
+  </button>
+
+  <!-- دکمه سایر با دراپ‌داون -->
+  <div style="position: relative;">
+    <button id="moreBtn" aria-haspopup="true" aria-expanded="false" aria-label="سایر گزینه‌ها" style="background:none; border:none; color:white; font-size:1.4rem; display:flex; flex-direction: column; align-items:center; cursor:pointer;">
+      <i class="fas fa-ellipsis-h"></i>
+      سایر
+    </button>
+
+    <ul id="moreMenu" role="menu" aria-label="منوی سایر گزینه‌ها" >
+      <li role="none"><button role="menuitem" data-target="news" aria-label="صفحه اخبار" style="background:none; border:none; color:white; width: 100%; text-align: right; padding: 0.5rem 1rem; cursor:pointer;"> 
+        <i class="fas fa-newspaper" style="margin-left: 6px;"></i> اخبار
+      </button></li>
+
+      <li role="none"><button role="menuitem" data-target="exhibitions" aria-label="صفحه نمایشگاه‌ها" style="background:none; border:none; color:white; width: 100%; text-align: right; padding: 0.5rem 1rem; cursor:pointer;"> 
+        <i class="fas fa-building" style="margin-left: 6px;"></i> نمایشگاه‌ها
+      </button></li>
+
+      <li role="none"><button role="menuitem" data-target="map" aria-label="صفحه نقشه غرفه‌ها" style="background:none; border:none; color:white; width: 100%; text-align: right; padding: 0.5rem 1rem; cursor:pointer;"> 
+        <i class="fas fa-map-marked-alt" style="margin-left: 6px;"></i> نقشه
+      </button></li>
+
+      <li role="none"><button role="menuitem" data-target="about" aria-label="صفحه درباره ما" style="background:none; border:none; color:white; width: 100%; text-align: right; padding: 0.5rem 1rem; cursor:pointer;"> 
+        <i class="fas fa-info-circle" style="margin-left: 6px;"></i> درباره
+      </button></li>
+
+      <li role="none"><button role="menuitem" data-target="wallet" aria-label="صفحه کیف پول و پرداخت" style="background:none; border:none; color:white; width: 100%; text-align: right; padding: 0.5rem 1rem; cursor:pointer;"> 
+        <i class="fas fa-wallet" style="margin-left: 6px;"></i> کیف پول و پرداخت
+      </button></li>
+    </ul>
+  </div>
+</nav>
+<script>
+  const buttons = document.querySelectorAll('nav > button:not(#moreBtn)');
+  const moreBtn = document.getElementById('moreBtn');
+  const moreMenu = document.getElementById('moreMenu');
+  const pages = document.querySelectorAll('.page');
+
+  // نمایش/پنهان کردن منوی سایر
+  moreBtn.addEventListener('click', () => {
+    const expanded = moreBtn.getAttribute('aria-expanded') === 'true';
+    moreBtn.setAttribute('aria-expanded', !expanded);
+    moreMenu.style.display = expanded ? 'none' : 'block';
+  });
+
+  // بستن منوی سایر اگر کلیک بیرون از آن شد
+  document.addEventListener('click', (e) => {
+    if (!moreBtn.contains(e.target) && !moreMenu.contains(e.target)) {
+      moreMenu.style.display = 'none';
+      moreBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // تغییر صفحه با کلیک روی دکمه‌های اصلی و منوی سایر
+  function activatePage(target) {
+    pages.forEach(p => p.classList.remove('active'));
+    const activePage = document.getElementById(target);
+    if (activePage) activePage.classList.add('active');
+
+    // دکمه‌های اصلی
+    buttons.forEach(b => {
+      if (b.getAttribute('data-target') === target) {
+        b.classList.add('active');
+        b.setAttribute('aria-current', 'page');
+      } else {
+        b.classList.remove('active');
+        b.removeAttribute('aria-current');
+      }
+    });
+
+    // بستن منوی سایر و ریست aria-expanded
+    moreMenu.style.display = 'none';
+    moreBtn.setAttribute('aria-expanded', 'false');
+
+    // اگر منوی سایر شامل آن صفحه هست، باید دکمه داخل منوی سایر رو هم های‌لایت کنیم (می‌تونید اینجا اضافه کنید)
+    // یا اینکه دکمه منوی سایر رو اکتیو کنیم به جای دکمه‌های اصلی.
+    // اینجا ساده برای UX بهتر فقط دکمه‌های اصلی مدیریت میشن.
+
+    // فعال کردن دکمه "سایر" اگر صفحه از منوی سایر هست (مثلاً register، map، parking و غیره)
+    const moreTargets = ['map', 'about', 'register', 'parking', 'shop', 'wallet'];
+    if (moreTargets.includes(target)) {
+      buttons.forEach(b => b.classList.remove('active'));
+      document.querySelector('#moreBtn').classList.add('active');
+      document.querySelector('#moreBtn').setAttribute('aria-current', 'page');
+    }
+
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      activatePage(btn.getAttribute('data-target'));
+    });
+  });
+
+  // دکمه‌های داخل منوی سایر
+  moreMenu.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activatePage(btn.getAttribute('data-target'));
+    });
+  });
+</script>
+<script>
+  // سوییچ صفحات (قبلاً تعریف شده)
+  const buttons = document.querySelectorAll('nav button');
+  const pages = document.querySelectorAll('.page');
+  const toast = document.getElementById('toast');
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-target');
+      pages.forEach((p) => p.classList.remove('active'));
+      document.getElementById(target).classList.add('active');
+
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      buttons.forEach(b => b.removeAttribute('aria-current'));
+      btn.setAttribute('aria-current', 'page');
+
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  });
+
+  // فرم ثبت‌نام شرکت‌ها
+  function submitCompanyRegistration() {
+    const companyName = document.getElementById('companyName').value.trim();
+    const companyManager = document.getElementById('companyManager').value.trim();
+    const companyEmail = document.getElementById('companyEmail').value.trim();
+    const companyPhone = document.getElementById('companyPhone').value.trim();
+
+    if (!companyName || !companyManager || !companyEmail || !companyPhone) {
+      showToast('لطفاً همه فیلدهای ثبت‌نام شرکت را پر کنید.');
+      return;
+    }
+
+    showToast('ثبت‌نام شرکت با موفقیت انجام شد. ممنونیم!');
+    document.getElementById('companyName').value = '';
+    document.getElementById('companyManager').value = '';
+    document.getElementById('companyEmail').value = '';
+    document.getElementById('companyPhone').value = '';
+  }
+
+  // فرم رزرو پارکینگ
+  function submitParkingReservation() {
+    const date = document.getElementById('parkingDate').value;
+    const count = document.getElementById('parkingCount').value;
+
+    if (!date || !count) {
+      showToast('لطفاً تاریخ و تعداد جای پارک را انتخاب کنید.');
+      return;
+    }
+
+    showToast(`رزرو پارکینگ شما برای تاریخ ${date} به تعداد ${count} جای پارک ثبت شد.`);
+    document.getElementById('parkingDate').value = '';
+    document.getElementById('parkingCount').value = '';
+  }
+
+  // فروشگاه: سبد خرید
+  const cart = [];
+
+  function addToCart(name, price) {
+    cart.push({ name, price });
+    updateCartUI();
+    showToast(`${name} به سبد خرید اضافه شد.`);
+  }
+
+  function updateCartUI() {
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    cartItems.innerHTML = '';
+    let total = 0;
+    cart.forEach((item, i) => {
+      total += item.price;
+      const li = document.createElement('li');
+      li.textContent = `${item.name} — ${item.price.toLocaleString()} تومان`;
+      cartItems.appendChild(li);
+    });
+    cartTotal.textContent = `مجموع: ${total.toLocaleString()} تومان`;
+  }
+
+  function checkout() {
+    if (cart.length === 0) {
+      showToast('سبد خرید شما خالی است.');
+      return;
+    }
+    showToast('پرداخت با موفقیت انجام شد. ممنونیم!');
+    cart.length = 0;
+    updateCartUI();
+  }
+
+  // کیف پول و پرداخت
+  let walletBalance = 0;
+
+  function chargeWallet() {
+    const amount = parseInt(document.getElementById('walletChargeAmount').value);
+    if (isNaN(amount) || amount < 1000) {
+      showToast('مقدار شارژ باید عدد و حداقل ۱۰۰۰ تومان باشد.');
+      return;
+    }
+    walletBalance += amount;
+    updateWalletUI();
+    showToast(`کیف پول شما به میزان ${amount.toLocaleString()} تومان شارژ شد.`);
+    document.getElementById('walletChargeAmount').value = '';
+  }
+
+  function updateWalletUI() {
+    document.getElementById('walletBalance').textContent = `${walletBalance.toLocaleString()} تومان`;
+  }
+
+  function payWithCrypto() {
+    const crypto = document.getElementById('cryptoSelect').value;
+    const amount = parseFloat(document.getElementById('cryptoAmount').value);
+    if (isNaN(amount) || amount <= 0) {
+      showToast('مقدار پرداخت باید عدد مثبت باشد.');
+      return;
+    }
+    showToast(`پرداخت ${amount} ${crypto} با موفقیت انجام شد. متشکریم!`);
+    document.getElementById('cryptoAmount').value = '';
+  }
+
+  // توست ساده برای نمایش پیام‌ها
+  function showToast(message) {
+    if (!toast) return alert(message);
+    toast.textContent = message;
+    toast.style.display = 'block';
+    setTimeout(() => { toast.style.display = 'none'; }, 3500);
+  }
+</script>
+<script>
+  function initMap() {
+    // موقعیت اولیه نقشه (مثلاً تهران)
+    const tehran = { lat: 35.6892, lng: 51.3890 };
+
+    // ایجاد نقشه داخل div با id="map"
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 12,
+      center: tehran,
+    });
+
+    // نمونه مارکر روی تهران
+    const marker = new google.maps.Marker({
+      position: tehran,
+      map: map,
+      title: "تهران",
+    });
+  }
+</script>
+
+<!-- اضافه کردن اسکریپت API گوگل مپس با کلید شما -->
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js').then(function () {
+      console.log('Service Worker Registered');
+    });
+  }
+</script>
+
+</main>
+</html>
